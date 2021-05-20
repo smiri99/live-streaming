@@ -1,7 +1,8 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443})
-const myVideo = document.getElementById("v1")
+
+const myVideo = document.createElement('video')
 myVideo.muted = true
 const peers = {}
 navigator.mediaDevices.getUserMedia({
@@ -12,7 +13,7 @@ navigator.mediaDevices.getUserMedia({
 
   myPeer.on('call', call => {
     call.answer(stream)
-    const video = document.getElementById("v2")
+    const video = document.createElement('video')
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
@@ -33,7 +34,7 @@ myPeer.on('open', id => {
 
 function connectToNewUser(userId, stream) {
   const call = myPeer.call(userId, stream)
-  const video = document.getElementById("v2")
+  const video = document.createElement('video')
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
   })
