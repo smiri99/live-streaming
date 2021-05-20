@@ -1,11 +1,8 @@
 const express = require('express')
 const app = express()
-var cors = require('cors');
-app.use(cors());
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
-
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -29,8 +26,4 @@ io.on('connection', socket => {
   })
 })
 
-
-const PORT = 3001 || 8000;
-app.listen(PORT, () => {
-  console.log(`App running on port: ${PORT}`);
-});
+server.listen(3001)
